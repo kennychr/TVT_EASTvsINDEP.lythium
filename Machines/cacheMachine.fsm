@@ -1,0 +1,297 @@
+/*%FSM<COMPILE "F:\SteamLibrary\steamapps\common\Arma 3 Tools\FSMEditor\scriptedFSM.cfg, cacheMachine">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,260.046844,705.927979,350.046844,755.927979,0.000000,"Init"};
+item1[] = {"planning_time_over",8,218,395.054382,705.202148,485.054382,755.202148,0.000000,"planning time over?"};
+item2[] = {"find_towns",2,250,540.032776,705.928040,630.032776,755.928040,0.000000,"find towns"};
+item3[] = {"towns_found_",4,218,653.264954,705.202148,743.264954,755.202148,0.000000,"towns" \n "found?"};
+item4[] = {"find_town",2,250,770.126343,705.202148,860.126343,755.202148,0.000000,"find town"};
+item5[] = {"town_found_",4,218,890.615540,704.475830,980.615540,754.475769,0.000000,"town" \n "found?"};
+item6[] = {"spawn_cache__Task",2,250,1012.557678,702.298340,1102.557739,752.298340,0.000000,"spawn cache" \n "+Task for OP"};
+item7[] = {"wait",4,218,1125.788818,701.571106,1215.788818,751.571045,0.000000,"wait"};
+item8[] = {"task_Blu_",2,250,1252.811768,701.571167,1342.811768,751.571167,0.000000,"task Blu."};
+item9[] = {"_",8,218,1252.085571,621.728149,1342.085693,671.728149,0.000000,""};
+item10[] = {"time_to_check_ca",2,250,1252.811523,552.047058,1342.811523,602.047058,0.000000,"time to check" \n "cache"};
+item11[] = {"time_to_check",4,218,1253.537354,485.995056,1343.537354,535.994629,0.000000,"time" \n "to" \n "check"};
+item12[] = {"Dead_",2,250,1254.262939,417.765839,1344.262939,467.765839,0.000000,"Dead?"};
+item13[] = {"dead___addvar",4,218,1143.934692,417.765625,1233.934692,467.765625,1.000000,"dead? +addvar"};
+item14[] = {"no",8,218,1355.881348,485.269257,1445.881348,535.269287,0.000000,"no"};
+item15[] = {"",7,210,1396.917114,572.392273,1404.917114,580.392273,0.000000,""};
+item16[] = {"",7,210,1396.881592,438.765656,1404.881592,446.765625,0.000000,""};
+item17[] = {"update_task_clea",2,250,1004.828613,417.427643,1094.828613,467.427643,0.000000,"update task" \n "cleanup"};
+item18[] = {"time_",4,218,538.970215,418.789978,628.970215,468.789978,0.000000,"time?"};
+item19[] = {"End_Game_",4,218,1005.632629,338.376617,1095.632568,388.376617,1.000000,"End Game?"};
+item20[] = {"_",1,250,1007.698975,230.937454,1097.698975,280.937439,0.000000,""};
+link0[] = {0,1};
+link1[] = {1,2};
+link2[] = {2,3};
+link3[] = {3,4};
+link4[] = {4,5};
+link5[] = {5,6};
+link6[] = {6,7};
+link7[] = {7,8};
+link8[] = {8,9};
+link9[] = {9,10};
+link10[] = {10,11};
+link11[] = {11,12};
+link12[] = {12,13};
+link13[] = {12,16};
+link14[] = {13,17};
+link15[] = {14,15};
+link16[] = {15,10};
+link17[] = {16,14};
+link18[] = {17,18};
+link19[] = {17,19};
+link20[] = {18,2};
+link21[] = {19,20};
+globals[] = {0.000000,0,0,0,0,640,480,1,23,6316128,1,590.916809,1517.581787,866.481750,-18.859364,897,857,1};
+window[] = {0,-1,-1,-1,-1,1107,-2482,-562,78,1,915};
+*//*%FSM</HEAD>*/
+class FSM
+{
+        fsmName = "cacheMachine";
+        class States
+        {
+                /*%FSM<STATE "Init">*/
+                class Init
+                {
+                        name = "Init";
+                        itemno = 0;
+                        init = /*%FSM<STATEINIT""">*/"//_planning_time = ""PlanningTime"" call BIS_fnc_getParamValue;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "planning_time_over">*/
+                                class planning_time_over
+                                {
+                                        itemno = 1;
+                                        priority = 0.000000;
+                                        to="find_towns";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"//time >= _planning_time"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "find_towns">*/
+                class find_towns
+                {
+                        name = "find_towns";
+                        itemno = 2;
+                        init = /*%FSM<STATEINIT""">*/"_towns = nearestLocations [mapCenter, [""NameVillage"",""NameCity"",""NameCityCapital""], 25000];"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "towns_found_">*/
+                                class towns_found_
+                                {
+                                        itemno = 3;
+                                        priority = 0.000000;
+                                        to="find_town";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!isNil ""_towns"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "find_town">*/
+                class find_town
+                {
+                        name = "find_town";
+                        itemno = 4;
+                        init = /*%FSM<STATEINIT""">*/"_town = _towns call BIS_fnc_selectRandom;" \n
+                         "cacheAO = getPos _town;"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "town_found_">*/
+                                class town_found_
+                                {
+                                        itemno = 5;
+                                        priority = 0.000000;
+                                        to="spawn_cache__Task";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!isNil ""_town"""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "spawn_cache__Task">*/
+                class spawn_cache__Task
+                {
+                        name = "spawn_cache__Task";
+                        itemno = 6;
+                        init = /*%FSM<STATEINIT""">*/"cache = createVehicle [""Box_FIA_Wps_F"", cacheAO, [], 0, ""can_collide""];" \n
+                         "[cache,100,3] execVM ""scripts\rndPos.sqf"";" \n
+                         "cachePos = getPos cache;" \n
+                         "//Respawn for OP" \n
+                         "CACHE_respawn = createMarker [""respawn_guerrilaCACHE"",cachePos];" \n
+                         "CACHE_respawn setMarkerText ""Cache Respawn"";" \n
+                         "//Tasks" \n
+                         "[""Defend the Cache against enemy attacks"",""Defend Cache"",""cache_Pos"",cachePos,""Defend""] call AW_fnc_makeTaskGuer;" \n
+                         "" \n
+                         "" \n
+                         "_timeout = (time + 120 + (random 20));" \n
+                         ""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "wait">*/
+                                class wait
+                                {
+                                        itemno = 7;
+                                        priority = 0.000000;
+                                        to="task_Blu_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time >= _timeout"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "task_Blu_">*/
+                class task_Blu_
+                {
+                        name = "task_Blu_";
+                        itemno = 8;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "_">*/
+                                class _
+                                {
+                                        itemno = 9;
+                                        priority = 0.000000;
+                                        to="time_to_check_ca";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "time_to_check_ca">*/
+                class time_to_check_ca
+                {
+                        name = "time_to_check_ca";
+                        itemno = 10;
+                        init = /*%FSM<STATEINIT""">*/"_timeout = (time + 10 + (random 5));"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "time_to_check">*/
+                                class time_to_check
+                                {
+                                        itemno = 11;
+                                        priority = 0.000000;
+                                        to="Dead_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time >= _timeout"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "Dead_">*/
+                class Dead_
+                {
+                        name = "Dead_";
+                        itemno = 12;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "dead___addvar">*/
+                                class dead___addvar
+                                {
+                                        itemno = 13;
+                                        priority = 1.000000;
+                                        to="update_task_clea";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"!alive cache"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"DestroyedCaches = DestroyedCaches + 1;"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "no">*/
+                                class no
+                                {
+                                        itemno = 14;
+                                        priority = 0.000000;
+                                        to="time_to_check_ca";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "update_task_clea">*/
+                class update_task_clea
+                {
+                        name = "update_task_clea";
+                        itemno = 17;
+                        init = /*%FSM<STATEINIT""">*/"deleteVehicle cache;" \n
+                         "deleteMarker ""CACHE_circle"";" \n
+                         "deleteMarker ""CACHE_circle2"";" \n
+                         "deleteMarker ""respawn_guerrilaCACHE"";" \n
+                         "" \n
+                         "_timeout = (time + 40 + (random 20));"/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                                /*%FSM<LINK "End_Game_">*/
+                                class End_Game_
+                                {
+                                        itemno = 19;
+                                        priority = 1.000000;
+                                        to="_";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"DestroyedCachesNeeded == DestroyedCaches;"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/"hint ""cacheMachine FSM Exit"";"/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                                /*%FSM<LINK "time_">*/
+                                class time_
+                                {
+                                        itemno = 18;
+                                        priority = 0.000000;
+                                        to="find_towns";
+                                        precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+                                        condition=/*%FSM<CONDITION""">*/"time >= _timeout"/*%FSM</CONDITION""">*/;
+                                        action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+                                };
+                                /*%FSM</LINK>*/
+                        };
+                };
+                /*%FSM</STATE>*/
+                /*%FSM<STATE "_">*/
+                class _
+                {
+                        name = "_";
+                        itemno = 20;
+                        init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+                        precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+                        class Links
+                        {
+                        };
+                };
+                /*%FSM</STATE>*/
+        };
+        initState="Init";
+        finalStates[] =
+        {
+                "_",
+        };
+};
+/*%FSM</COMPILE>*/
